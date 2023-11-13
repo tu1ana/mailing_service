@@ -1,0 +1,31 @@
+{% extends 'mailout/base.html' %}
+
+{% block content %}
+<section id="hero" class="d-flex align-items-end">
+    <div class="container position-relative">
+        {% if user.is_authenticated %}
+        <a class="btn btn-outline-primary" href="{% url 'mailout:client_create' %}">Добавить клиента</a>
+        {% endif %}
+        <div class="row">
+            <div class="col-12 mb-5">
+            </div>
+            {% for object in object_list %}
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ object.first_name }} {{ object.last_name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ object.email }}</p>
+                        <span class="text-muted">{{ object.comment|truncatechars:100 }}</span>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-outline-warning float-right" href="{% url 'mailout:client_view' object.pk %}">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

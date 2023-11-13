@@ -1,0 +1,41 @@
+{% extends 'mailout/base.html' %}
+
+{% block content %}
+<section id="hero" class="d-flex align-items-end">
+    <div class="container position-relative">
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h3 class="my-0 fw-normal">Пользователи</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>ID</th>
+                        <th>Имя</th>
+                        <th>Email</th>
+                        <th>Активность</th>
+                    </tr>
+                    {% for object in object_list %}
+                    {% if perms.users.view_all_users %}
+                    <tr>
+                        <td>{{ object.pk }}</td>
+                        <td>{{ object.first_name }} {{ object.last_name }}</td>
+                        <td>{{ object.email }}</td>
+                        <td>
+                            {% if object.is_active %}
+                            <a href="{% url 'users:toggle_activity' object.pk %}"
+                               class="btn btn-sm btn-outline-danger">Заблокировать</a>
+                            {% else %}
+                            <a href="{% url 'users:toggle_activity' object.pk %}"
+                               class="btn btn-sm btn-outline-success">Разблокировать</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

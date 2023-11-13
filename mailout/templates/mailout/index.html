@@ -1,0 +1,73 @@
+{% extends 'mailout/base.html' %}
+{% load my_tags %}
+{% block content %}
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+            <div class="col-xl-7 col-lg-9 text-center">
+                <h1>Сервис рассылок</h1>
+                <h2>Отправляйте письма быстро и безопасно</h2>
+            </div>
+        </div>
+        <div class="text-center">
+            {% if user.is_authenticated %}
+            <a href="{% url 'mailout:create' %}" class="btn-get-started">Создать рассылку</a>
+            {% endif %}
+        </div>
+    </div>
+</section><!-- End Hero -->
+
+<main id="main">
+
+
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts section-bg">
+        <div class="container">
+
+            <div class="row justify-content-end">
+
+                <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
+                    <div class="count-box"><h3 class="display-3">{{ client_count }}</h3>
+                        <p>Наши клиенты</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
+                    <div class="count-box"><h3 class="display-3">{{ mailout_count }}</h3>
+                        <p>Наши рассылки</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
+                    <div class="count-box">
+                        <h3 class="display-3">{{ mailout_active_count }}</h3>
+                        <p>Активные рассылки</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Counts Section -->
+
+    <!-- ======= Pricing Section ======= -->
+    {% for object in random_blog_list %}
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="row">
+                <div class="container" data-aos="fade-up">
+                    <div class="col-4">
+                        <a href="{% url 'blog:blog_view' object.pk %}" class="section-title">
+                            <h2>{{ object.title }}</h2>
+                            <p>{{ object.article|truncatechars:250 }}</p>
+                        </a>
+                    </div>
+                    <div class="row">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Pricing Section -->
+
+</main><!-- End #main -->
+{% endblock %}

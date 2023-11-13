@@ -1,0 +1,57 @@
+{% extends 'mailout/base.html' %}
+
+{% block content %}
+<section id="hero" class="d-flex align-items-end">
+    <div class="container position-relative">
+        <!--<div class="col-12">-->
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title">Пример письма</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Тема сообщения</th>
+                                <th>Содержание</th>
+                            </tr>
+                            <tr>
+                                <td>{{ object.subject }}</td>
+                                <td>{{ object.body }}</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <a href="{% url 'mailout:create' %}" type="button"
+                       class="btn btn-sm btn-outline-secondary">Отправить</a>
+                    <a href="{% url 'mailout:message_delete' object.pk %}" type="button"
+                       class="btn btn-sm btn-outline-secondary">Удалить</a>
+                    <a href="{% url 'mailout:message_list' %}" type="button"
+                       class="btn btn-sm btn-outline-secondary">Назад к списку</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+<!--<td>{% for client_item in object.client.all %}-->
+<!--                <br>- {{ client_item.first_name }} {{ client_item.last_name }} ({{ client_item.email }})-->
+<!--                                    {% endfor %}-->
+<!--                                </td>-->
+
+
+<!--<td>{{ object.mailout.start_time }}</td>-->
+<!--                                <td>{{ object.mailout.finish_time }}</td>-->
+
+<!--                                {% if object.mailout.freq in 'DY' %}-->
+<!--                                <td>ежедневная</td>-->
+<!--                                {% elif object.mailout.freq in 'WK' %}-->
+<!--                                <td>еженедельная</td>-->
+<!--                                {% else %}-->
+<!--                                <td>ежемесячная</td>-->
+<!--                                {% endif %}-->

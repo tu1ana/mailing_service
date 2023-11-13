@@ -1,0 +1,37 @@
+{% extends 'mailout/base.html' %}
+
+{% block content %}
+<section id="hero" class="d-flex align-items-end">
+    <div class="container position-relative">
+        {% if user.is_authenticated %}
+        <a href="{% url 'mailout:message_create' %}" class="btn-get-started">Создать новое сообщение</a>
+        {% endif %}
+        <div class="row">
+            <div class="col-12 mb-5">
+            </div>
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h3 class="my-0 fw-normal">Выберите сообщение для отправки</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>ID</th>
+                            <th>Тема сообщения</th>
+                            <th>Текст сообщения</th>
+                            <th>-</th>
+                        </tr>
+                        {% for object in object_list %}
+                        <tr>
+                            <td><a href="{% url 'mailout:message_view' object.pk %}">{{ object.pk }}</a></td>
+                            <td><a href="{% url 'mailout:message_view' object.pk %}">{{ object.subject|truncatechars:30 }}</a></td>
+                            <td>{{ object.body|truncatechars:50 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
